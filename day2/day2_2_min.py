@@ -1,4 +1,3 @@
 ROCK, PAPER, SCISSORS, OUTCOME_WIN, OUTCOME_LOSS, OUTCOME_DRAW, TO_WIN, TO_DRAW, TO_LOSE = 1, 2, 3, 6, 0, 3, 1, 0, -1
 OUTCOME_SCORE, RPS = {TO_WIN: OUTCOME_WIN, TO_LOSE: OUTCOME_LOSS, TO_DRAW: OUTCOME_DRAW}, {'A': ROCK, 'B': PAPER, 'C': SCISSORS, 'X': TO_LOSE, 'Y': TO_DRAW, 'Z': TO_WIN}
-with open('data.txt', 'r') as f: scores = [(RPS[line[0]] + RPS[line[2]] - 1) % 3 + 1 + OUTCOME_SCORE[RPS[line[2]]] for line in f]
-print(f'Total player score = {sum(scores)}.')
+with open('data.txt', 'r') as f: print('Total player score = ' + str(sum( [(RPS[line[0]] + RPS[line[2]] - 1) % 3 + 1 + OUTCOME_SCORE[RPS[line[2]]] for line in f])) + '.')
