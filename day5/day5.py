@@ -1,8 +1,3 @@
-import re
-sum = 0
-
-
-
 with open('data.txt', 'r') as f:
     entries = 0
     stack_map = {}
