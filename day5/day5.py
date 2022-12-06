@@ -5,8 +5,8 @@ with open('data.txt', 'r') as f:
     # read first line
     # create dictionary key of stack list containing first crate
     for line in f:
-        entries = len(line[0:-1]) // 4
-        for i in range(0, entries+1):
+        entries = len(line[0:]) // 4
+        for i in range(0, entries):
             k = i * 4 + 1
             stack_map[i] = []
             if line[k] != ' ': 
@@ -18,7 +18,7 @@ with open('data.txt', 'r') as f:
     for line in f:
         if (line[1] == '1'): break
 
-        for i in range(0, entries+1):
+        for i in range(0, entries):
             k = i * 4 + 1
             if line[k] != ' ': 
                 stack_map[i].insert(0, line[k])
@@ -28,8 +28,6 @@ with open('data.txt', 'r') as f:
 
     # rearrange crates by popping and pushing
     for line in f: 
-        if (line[1] == '\n'): break
-
         l = line.split(' ')
         amount, src, des = int(l[1]), int(l[3])-1, int(l[5])-1
 
