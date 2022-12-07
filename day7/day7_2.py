@@ -62,7 +62,7 @@ smallest_to_free = total_available_disk_space
 # find the smallest space to free up by checking totalsize of each directory in root '/'
 for dir in directory['/']['dirs']:
     dir_size = directory[dir]['totalsize']
-    if dir_size >= minimum_space_to_free and dir_size < smallest_to_free:
+    if minimum_space_to_free <= dir_size < smallest_to_free:
             smallest_to_free = dir_size
 
 print(f'Total size of directory that can free up enough space on the filesystem to run the update: {smallest_to_free}')
