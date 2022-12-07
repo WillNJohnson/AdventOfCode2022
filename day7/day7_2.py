@@ -54,12 +54,6 @@ for k, v in directory.items():
     
     v['totalsize'] = totalsize
 
-# calculate sum of files with total sizes that are at most 100,000
-sum_at_most_size_100_000 = 0
-for k, v in directory.items():
-    if v['totalsize'] <= 100000:
-        sum_at_most_size_100_000 += v['totalsize']
-
 # free up a directory so that there is 'required_unused_space' amount of unused space
 total_available_disk_space, required_unused_space = 70000000, 30000000
 minimum_space_to_free = required_unused_space - (total_available_disk_space - directory['/']['totalsize'])
