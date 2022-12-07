@@ -1,4 +1,5 @@
 directory = {}
+delim = '\\'
 
 with open('data.txt', 'r') as f:
     cwd = []
@@ -15,15 +16,15 @@ with open('data.txt', 'r') as f:
 
                 # directory listing can contain either a DIRECTORY or a FILE
                 if 'dir' in listing_list:
-                    dirname = '-'.join(cwd) + '-' + listing_list[1]
+                    dirname = delim.join(cwd) + delim + listing_list[1]
 
                     # current working directory contains a directory
-                    directory['-'.join(cwd)]['dirs'].append(dirname)
+                    directory[delim.join(cwd)]['dirs'].append(dirname)
 
                     # on a subdirectory, update up-level directories to contain that subdirectory
                     # if not already included
                     for i in range(len(dirname)-1):
-                        if (dirname[i] == '-'):
+                        if (dirname[i] == delim):
                             dirname_level = dirname[0:i]
                             if dirname not in directory[dirname_level]['dirs']:
                                 directory[dirname_level]['dirs'].append(dirname)
@@ -31,8 +32,8 @@ with open('data.txt', 'r') as f:
                     filename, filesize = listing_list[1], int(listing_list[0])
 
                     # current working directory contains a file and corresponding filesize
-                    directory['-'.join(cwd)]['files'].append(filename)
-                    directory['-'.join(cwd)]['filesizes'].append(filesize)
+                    directory[delim.join(cwd)]['files'].append(filename)
+                    directory[delim.join(cwd)]['filesizes'].append(filesize)
 
         if 'cd' in line_list:
             # cd can either go up directory or visit a subdirectory inside cwd
@@ -42,8 +43,8 @@ with open('data.txt', 'r') as f:
                 cwd.append(line_list[2])
 
                 # create a dictionary for the newly-appended directory, if dictionary hasn't already been added
-                if not '-'.join(cwd) in directory:
-                    directory['-'.join(cwd)] = {'dirs': [], 'files': [], 'filesizes': [], 'totalsize': 0}
+                if not delim.join(cwd) in directory:
+                    directory[delim.join(cwd)] = {'dirs': [], 'files': [], 'filesizes': [], 'totalsize': 0}
 
 # calculate total size for each directory
 for k, v in directory.items():
