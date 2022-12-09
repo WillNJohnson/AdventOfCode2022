@@ -26,10 +26,7 @@ def main():
     M = []
     with open('data.txt', 'r') as f:
         for line in f:
-            SM = []
-            for num in line[0:-1]:
-                SM.append(int(num))
-            M.append(SM)
+            M.append([int(num) for num in list(*line[0:-1].split())])
 
     nr, nc = len(M)-1, len(M[0])-1
 
@@ -39,10 +36,9 @@ def main():
     # check if inner grid is visible
     for i in range(1, nc):
         for j in range(1, nr):
-            if isVisible(M, i, j, nr, nc, 'LEFT'):   continue
-            if isVisible(M, i, j, nr, nc, 'RIGHT'):  continue
-            if isVisible(M, i, j, nr, nc, 'UP'):     continue
-            isVisible(M, i, j, nr, nc, 'DOWN')
+            M_dat = (M, i, j, nr, nc)
+            if isVisible(*M_dat, 'LEFT') or isVisible(*M_dat, 'RIGHT') or isVisible(*M_dat, 'UP') or isVisible(*M_dat, 'DOWN'):
+                continue
             
     print(f'Total visible trees = {edge_case + count}')
 

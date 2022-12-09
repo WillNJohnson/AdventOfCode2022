@@ -1,4 +1,4 @@
-def getDirectionScenicValue(M, i, j, nr, nc, direction):
+def getScenicValue(M, i, j, nr, nc, direction):
     distance, lr, ud = 0, 0, 0
     cur = M[i][j]
 
@@ -24,24 +24,16 @@ def main():
 
     with open('data.txt', 'r') as f:
         for line in f:
-            SM = []
-            for num in line[0:-1]:
-                SM.append(int(num))
-            M.append(SM)
+            M.append([int(num) for num in list(*line[0:-1].split())])
 
     nr, nc = len(M)-1, len(M[0])-1
 
     # check if inner grid is visible
     for i in range(1, nc):
         for j in range(1, nr):
-            temp_scenic_score = 1
-            temp_scenic_score*= getDirectionScenicValue(M, i, j, nr, nc, 'LEFT')
-            temp_scenic_score*= getDirectionScenicValue(M, i, j, nr, nc, 'RIGHT')
-            temp_scenic_score*= getDirectionScenicValue(M, i, j, nr, nc, 'UP')
-            temp_scenic_score*= getDirectionScenicValue(M, i, j, nr, nc, 'DOWN')
-            
-            if temp_scenic_score > scenic_score:
-                scenic_score = temp_scenic_score
+            M_dat = (M, i, j, nr, nc)
+            temp_scenic_score = getScenicValue(*M_dat, 'LEFT') * getScenicValue(*M_dat, 'RIGHT') * getScenicValue(*M_dat, 'UP') * getScenicValue(*M_dat, 'DOWN')
+            scenic_score = max(temp_scenic_score, scenic_score)
 
     print(f'Highest scenic score = {scenic_score}')
 
