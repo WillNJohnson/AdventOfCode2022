@@ -6,7 +6,6 @@ with open('data.txt', 'r') as f:
     # create dictionary key of stack list containing first crate
     for line in f:
         entries = len(line[0:]) // 4
-        print(entries)
         for i in range(0, entries):
             k = i * 4 + 1
             stack_map[i] = []
