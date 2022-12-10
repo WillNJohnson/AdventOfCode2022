@@ -27,30 +27,35 @@ def touching(H_pos, T_pos):
 def move(position, direction):
     return tuple([sum(x) for x in zip(position, direction)])
 
-# define the step (as well as diagonal step)
-step = {
-    'L': (-1, 0), 'R': (1, 0), 'U': (0, 1), 'D': (0, -1)
-}
+def runSimulation():
+    # define the steps that head H can take
+    step = {'L': (-1, 0), 'R': (1, 0), 'U': (0, 1), 'D': (0, -1)}
 
-M_map = {(0, 0): 1}
-H_pos, T_pos = (0, 0), (0, 0)
+    M_map = {(0, 0): 1}
+    H_pos, T_pos = (0, 0), (0, 0)
 
-with open('data.txt', 'r') as f:
-    for line in f:
-        if line == '\n': break
-        data = line.split()
+    with open('data.txt', 'r') as f:
+        for line in f:
+            if line == '\n': break
+            data = line.split()
 
-        direction, movement = data[0], int(data[1])
+            direction, movement = data[0], int(data[1])
 
-        for i in range(0, movement):
-            H_prev_pos = H_pos
-            H_pos = move(H_pos, step[direction])
+            for i in range(0, movement):
+                H_prev_pos = H_pos
+                H_pos = move(H_pos, step[direction])
 
-            if touching(H_pos, T_pos): continue
+                if touching(H_pos, T_pos): continue
 
-            # update T_pos
-            T_pos = H_prev_pos
-            try: M_map[T_pos] += 1
-            except: M_map[T_pos] = 1
+                # update T_pos
+                T_pos = H_prev_pos
+                try: M_map[T_pos] += 1
+                except: M_map[T_pos] = 1
 
-print(f'{len(M_map)} positions have been visited at least once.')
+    print(f'{len(M_map)} positions have been visited by the tail of the rope at least once.')
+
+def main():
+    runSimulation()
+
+if __name__ == "__main__":
+    main()
