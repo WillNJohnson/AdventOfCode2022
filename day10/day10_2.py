@@ -25,6 +25,8 @@ def updateCycle(curr_crt_row, sprite_position, addx_val=0, scan=scan):
     return curr_crt_row
 
 def updateSpritePosition(X, scan):
+    if (X == -1): return ('#' + scan[X-1+draw_len:])[:40]
+    
     return (scan[:X-1] + '###' + scan[X-1+draw_len:])[:40]
 
 def main():
